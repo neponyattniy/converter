@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="hat">
+            <div class="banka"><img src="./img/banka.svg" alt=""></div>
+                <div class="things">
+                    <div class="inf"><span id = 'bank'>БАНК</span></div>
+                    <div class="inf"><span id = 'business'>БИЗНЕС</span></div>
+                    <div class="inf"><span id = 'invest'>ИНВЕСТИЦИИ</span></div>
+                    <div class="inf"><span id = 'insurance'>СТРАХОВАНИЕ</span></div>
+                    <div class="inf"><span id = 'mobile'>МОБАЙЛ</span></div>
+                    <div class="inf"><span id = 'travel'>ПУТЕШЕСТВИЯ</span></div>
+                    <div class="inf"><span id = 'fun'>РАЗВЛЕЧЕНИЯ</span></div>
+                </div>
+                <button id = 'enter'>ВОЙТИ</button>
+                <div class="nav">
+                    <div class="menuicon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                        width="50" height="50"
+                        viewBox="0 0 50 50">
+                        <path d="M 0 9 L 0 11 L 50 11 L 50 9 Z M 0 24 L 0 26 L 50 26 L 50 24 Z M 0 39 L 0 41 L 50 41 L 50 39 Z"></path>
+                        </svg></div>
+                    <div class="navbar">
+                        <div class="inf"><span id = 'bank'>БАНК</span></div>
+                        <div class="inf"><span id = 'business'>БИЗНЕС</span></div>
+                        <div class="inf"><span id = 'invest'>ИНВЕСТИЦИИ</span></div>
+                        <div class="inf"><span id = 'insurance'>СТРАХОВАНИЕ</span></div>
+                        <div class="inf"><span id = 'mobile'>МОБАЙЛ</span></div>
+                        <div class="inf"><span id = 'travel'>ПУТЕШЕСТВИЯ</span></div>
+                        <div class="inf"><span id = 'fun'>РАЗВЛЕЧЕНИЯ</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="main">
+                <h1>Конвертер валют онлайн</h1>
+                <div class="content">
+                    <div class="first container">
+                    <p>У меня есть</p>
+                    <div class="currencies button1">
+                            <button class="rub1" id="selected1">RUB</button>
+                            <button class="usd1">USD</button>
+                            <button class="azn1">AZN</button>
+                            <button class="gbp1">GBP</button>
+                    </div>
+                    <div class="currencies-first block">
+                        <input class="number1" type="number">
+                        <p class = 'currency1'></p>
+                        </div>
+                    </div>
+                    <div class="second container">
+                        <p>Хочу приобрести</p>
+                        <div class="currencies button2">
+                            <button class="rub2" id="selected2">RUB</button>
+                            <button class="usd2">USD</button>
+                            <button class="azn2">AZN</button>
+                            <button class="gbp2">GBP</button>
+                        </div>
+                        <div class="currencies-second block">
+                        <input class="number2" type="number">
+                        <p class="currency2"></p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
