@@ -151,10 +151,15 @@ h1 {
     margin-right: 65px;
 }
 
-.rub1, .usd2 {
+#selected1, #selected2 {
     background-color: #833AE0;
     color: #FFFFFF;
 }
+
+::placeholder {
+    color: black
+}
+
 .currencies {
     display: flex;
     flex-direction: row;
