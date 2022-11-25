@@ -9,26 +9,61 @@
         padding: 55px 0 20px 50px;
     }
 
-    .inf {
+
+    h1 {
+        width: 360px;
+    }
+
+    .inf{
         display: none;
     }
 
     #enter {
-        margin-right: 43vw;
+        margin-right: 40vw;
     }
 
     .banka {
         margin-left: 10px;
     }
 
-    .menuicon {
-        display: block;
-    }
 
 }
 /* MOBILE ZONE */
 /* MOBILE ZONE */
 /* MOBILE ZONE */
+
+/* TABLET ZONE */
+/* TABLET ZONE */
+/* TABLET ZONE */
+@media (max-width: 1280px) {
+    .main {
+        padding: 55px 0 20px 50px;
+    }
+
+    .first {
+        margin-bottom: 65px;
+    }
+
+    h1 {
+        width: 360px;
+    }
+
+    .things{
+        width: 20vw;
+        margin-left: 20px;
+    }
+
+    .banka {
+        margin-left: 20px;
+    }
+}
+/* TABLET ZONE */
+/* TABLET ZONE */
+/* TABLET ZONE */
+
+.menuicon {
+    display: none;
+}
 
 .navbar {
     display: none;
@@ -42,10 +77,6 @@
     position: absolute;
     top: 50px;
     right: 0;
-}
-
-.menuicon {
-    display: none;
 }
 
 body {
@@ -125,26 +156,18 @@ h1 {
     justify-content: space-between;
 }
 
-.container {
-    min-width: 265px;
-}
+/* .container {
+    min-width: 20px;
+} */
 
 .container p {
     margin: 8px 0 11px 0;
     color: #9F9F9F;
 }
 
-.first {
-    margin-right: 65px;
-}
-
 #selected1, #selected2 {
     background-color: #833AE0;
     color: #FFFFFF;
-}
-
-::placeholder {
-    color: black
 }
 
 .currencies1, .currencies2 {

@@ -4,7 +4,6 @@ let c1 = document.querySelector('.currency1')
 let c2 = document.querySelector('.currency2')
 let n1 = document.querySelector('.number1')
 let n2 = document.querySelector('.number2')
-
 let changeColorFirst = document.querySelectorAll('.button1')
 changeColorFirst.forEach((item) => {
   item.addEventListener('click', (event)=>
@@ -19,6 +18,7 @@ changeColorFirst.forEach((item) => {
     })
   })
 })
+
 let changeColorSecond = document.querySelectorAll('.button2')
 changeColorSecond.forEach((item) => {
   item.addEventListener('click', (event)=>
@@ -33,99 +33,100 @@ changeColorSecond.forEach((item) => {
     })
   })
 })
-// let buttons2 = document.querySelectorAll('.currencies2 button')
-// buttons2.forEach((item)=>{
-//   item.addEventListener('click', (event)=>{
-//     secondValue = event.target.textContent
-//     var requestURL = `https://api.exchangerate.host/convert?from=${secondValue}&to=${firstValue}`;
-//     var request = new XMLHttpRequest();
-//     request.open('GET', requestURL);
-//     request.responseType = 'json';
-//     request.send();
-//     request.onload = function() {
-//     var response = request.response;
-//     console.log(response)
-//     c2.textContent = `1 ${secondValue} = ${response.result} ${firstValue}`
-//     c1.textContent = `1 ${firstValue} = ${response.result} ${secondValue}`
-//     n2.addEventListener('keyup', () => {
-//       n1.value = (n2.value * response.result).toFixed(4)
-//     })
-//     }
-//   })
-// })
 
-function getCurrencies () {
-          // window.addEventListener('load', ()=>{
-          //   fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
-          //   .then(response => response.json())
-          //   .then(data => {
-          //     console.log(data)
-          //     c1.textContent = `1 ${firstValue} = ${data.rates[secondValue]} ${secondValue}`
-              
-          //     n1.addEventListener('input', ()=>{
-          //       n2.value = (n1.value*data.rates[secondValue]).toFixed(4)
-          //     })
-          //     fetch(`https://api.exchangerate.host/latest?base=${secondValue}&symbols=${firstValue}`)
-          //     .then(response => response.json())
-          //     .then(data => {
-          //       console.log(data)
-          //       c2.textContent = `1 ${secondValue} = ${data.rates[firstValue]} ${firstValue}`
-          //       n2.addEventListener('input', ()=>{
-          //         n1.value = (n2.value*data.rates[firstValue]).toFixed(4)
-          //       })
-          //     })
-          //   })
-          // })
-          let buttons = document.querySelectorAll('.currencies1 button')
-          buttons.forEach((item)=>{
-            item.addEventListener('click', (event)=>{
-              firstValue = event.target.textContent
-              fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
-              .then(response => response.json())
-              .then(data => {
-                console.log(data)
-                c1.textContent = `1 ${firstValue} = ${data.rates[secondValue]} ${secondValue}`
-                n2.value = (n1.value*data.rates[secondValue]).toFixed(4)
-                n1.addEventListener('input', ()=>{
-                  n2.value = ((n1.value*data.rates[secondValue]).toFixed(4))
-                })
-                fetch(`https://api.exchangerate.host/latest?base=${secondValue}&symbols=${firstValue}`)
-                .then(response => response.json())
-                .then(data => {
-                  console.log(data)
-                  c2.textContent = `1 ${secondValue} = ${data.rates[firstValue]} ${firstValue}`
-                n1.value = (n2.value*data.rates[firstValue]).toFixed(4)
-                })
-              })
-            })
-          })
-}
-getCurrencies()
+fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
+.then(response => {return response.json()})
+.then(data => {
+    currencyoffirst = data.rates[secondValue];
+    console.log(data.rates[secondValue])
+    currencyofsecond = 1 / currencyoffirst;
+    c1.textContent = `1 ${firstValue} = ${parseFloat(currencyoffirst.toFixed(4))} ${secondValue}`;
+    c2.textContent = `1 ${secondValue} = ${parseFloat(currencyofsecond.toFixed(4))} ${firstValue}`;
+    n1.addEventListener('input', () => {
+      n2.value = (parseFloat((n1.value*currencyoffirst)).toFixed(4)).replace('.0000', ' ')
+    })
+    n2.addEventListener('input', () => {
+      n1.value = (parseFloat((n2.value*currencyofsecond).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+    })
+})
+.catch(error => {
+  alert(`Error! ${error}`)
+});
 
-function getCurrenciesReversed() {
+let btn1 = document.querySelectorAll('.currencies1 button')
+btn1.forEach((item)=>
+{
+item.addEventListener('click', (event) => {
+firstValue = event.target.textContent
+fetching()
+})
+})
+let btn2 = document.querySelectorAll('.currencies2 button')
+btn2.forEach((item)=>
+{
+item.addEventListener('click', (event) => {
+secondValue = event.target.textContent
+fetching()
+})
+})
 
-  let buttons2 = document.querySelectorAll('.currencies2 button')
-  buttons2.forEach((item)=>{
-    item.addEventListener('click', (event)=>{
-      secondValue = event.target.textContent
-      
-      fetch(`https://api.exchangerate.host/latest?base=${secondValue}&symbols=${firstValue}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        c2.textContent = `1 ${secondValue} = ${data.rates[firstValue]} ${firstValue}`
-        n2.addEventListener('keyup', ()=>{
-          n1.value = (n2.value*data.rates[firstValue]).toFixed(4)
-        })
-        fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
-        .then(response => response.json())
-        .then(data1 => {
-          console.log(data1)
-          c1.textContent = `1 ${firstValue} = ${data1.rates[secondValue]} ${secondValue}`
-        })
+function fetching () {
+  fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
+  .then(response => {return response.json()})
+  .then(data => {
+      currencyoffirst = data.rates[secondValue];
+      console.log(data.rates[secondValue])
+      currencyofsecond = 1 / currencyoffirst;
+      c1.textContent = `1 ${firstValue} = ${parseFloat(currencyoffirst.toFixed(4))} ${secondValue}`;
+      c2.textContent = `1 ${secondValue} = ${parseFloat(currencyofsecond.toFixed(4))} ${firstValue}`;
+        n2.value = (parseFloat((n1.value*currencyoffirst).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+      n1.addEventListener('input', () => {
+        n2.value = (parseFloat((n1.value*currencyoffirst)).toFixed(4)).replace('.0000', ' ')
       })
-})
-})
+      n2.addEventListener('input', () => {
+        n1.value = (parseFloat((n2.value*currencyofsecond).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+
+      })
+  })  
+  .catch(error => {
+    alert(`Error! ${error}`)
+});
+
 }
 
-getCurrenciesReversed()
+let menu = document.querySelector('.menuicon')
+window.addEventListener('resize', () => {
+  menu.style.display = 'none'
+  if(window.innerWidth < 800)
+{
+  menu.style.display = 'block'
+}
+else
+{
+  menu.style.display = 'none'
+}
+})
+menu.addEventListener('click', (event) => {
+  if (window.innerWidth < 800) {
+      if (event.target.id == 'clicked') {
+          document.querySelector('.navbar').style.display = 'none';
+          event.target.id = ''
+      } else {
+          event.target.id = 'clicked'
+          document.querySelector('.navbar').style.display = 'flex';
+          let inf = document.querySelectorAll('.infnav')
+          inf.forEach((item)=>{
+            if(window.innerWidth<800 && event.target.id == 'clicked')
+            {
+              item.style.display = 'block'
+              item.addEventListener('mouseover', (event)=>{
+                event.target.style.color = 'black'
+              })
+              item.addEventListener('mouseout', (event) => {
+                event.target.style.color = ''
+              })
+            }
+          })
+      }
+  }
+});
