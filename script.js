@@ -33,27 +33,6 @@ changeColorSecond.forEach((item) => {
     })
   })
 })
-
-function def() {
-  if(firstValue == 'RUB' && secondValue == 'USD'){
-  var requestURL = `https://api.exchangerate.host/convert?from=RUB&to=USD`;
-  var request = new XMLHttpRequest();
-  request.open('GET', requestURL);
-  request.responseType = 'json';
-  request.send();
-  request.onload = function() {
-  var response = request.response;
-  console.log(response);
-  c1.textContent = `1 RUB = ${response.result} USD`
-  c2.textContent = `1 USD = 61.231337 RUB`
-  n1.addEventListener('keyup', () => {
-    n2.value = (n1.value * response.result).toFixed(4)
-  })
-}
-}
-}
-def()
-
 // let buttons2 = document.querySelectorAll('.currencies2 button')
 // buttons2.forEach((item)=>{
 //   item.addEventListener('click', (event)=>{
@@ -76,49 +55,77 @@ def()
 // })
 
 function getCurrencies () {
+          // window.addEventListener('load', ()=>{
+          //   fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
+          //   .then(response => response.json())
+          //   .then(data => {
+          //     console.log(data)
+          //     c1.textContent = `1 ${firstValue} = ${data.rates[secondValue]} ${secondValue}`
+              
+          //     n1.addEventListener('input', ()=>{
+          //       n2.value = (n1.value*data.rates[secondValue]).toFixed(4)
+          //     })
+          //     fetch(`https://api.exchangerate.host/latest?base=${secondValue}&symbols=${firstValue}`)
+          //     .then(response => response.json())
+          //     .then(data => {
+          //       console.log(data)
+          //       c2.textContent = `1 ${secondValue} = ${data.rates[firstValue]} ${firstValue}`
+          //       n2.addEventListener('input', ()=>{
+          //         n1.value = (n2.value*data.rates[firstValue]).toFixed(4)
+          //       })
+          //     })
+          //   })
+          // })
           let buttons = document.querySelectorAll('.currencies1 button')
           buttons.forEach((item)=>{
             item.addEventListener('click', (event)=>{
-              
-              let buttons2 = document.querySelectorAll('.currencies2 button')
-              buttons2.forEach((item)=>{
-                item.addEventListener('click', (event)=>{
-                  secondValue = event.target.textContent
-                  var requestURL = `https://api.exchangerate.host/convert?from=${secondValue}&to=${firstValue}`;
-                  var request = new XMLHttpRequest();
-                  request.open('GET', requestURL);
-                  request.responseType = 'json';
-                  request.send();
-                  request.onload = function() {
-                  var response = request.response;
-                  console.log(response)
-                  c2.textContent = `1 ${secondValue} = ${response.result} ${firstValue}`
-                  console.log(response.result)
-                  n2.addEventListener('keyup', () => {
-                    n1.value = (n2.value * response.result).toFixed(4)
-                  })
-                  }
+              firstValue = event.target.textContent
+              fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
+              .then(response => response.json())
+              .then(data => {
+                console.log(data)
+                c1.textContent = `1 ${firstValue} = ${data.rates[secondValue]} ${secondValue}`
+                n2.value = (n1.value*data.rates[secondValue]).toFixed(4)
+                n1.addEventListener('input', ()=>{
+                  n2.value = ((n1.value*data.rates[secondValue]).toFixed(4))
+                })
+                fetch(`https://api.exchangerate.host/latest?base=${secondValue}&symbols=${firstValue}`)
+                .then(response => response.json())
+                .then(data => {
+                  console.log(data)
+                  c2.textContent = `1 ${secondValue} = ${data.rates[firstValue]} ${firstValue}`
+                n1.value = (n2.value*data.rates[firstValue]).toFixed(4)
                 })
               })
-
-              firstValue = event.target.textContent
-              var requestURL = `https://api.exchangerate.host/convert?from=${firstValue}&to=${secondValue}`;
-              var request = new XMLHttpRequest();
-              request.open('GET', requestURL);
-              request.responseType = 'json';
-              request.send();
-              request.onload = function() {
-              var response = request.response;
-              console.log(response);
-              c1.textContent = `1 ${firstValue} = ${response.result} ${secondValue}`
-              n1.addEventListener('keyup', () => {
-                n2.value = (n1.value * response.result).toFixed(4)
-              })
-              }
             })
           })
 }
 getCurrencies()
 
+function getCurrenciesReversed() {
 
+  let buttons2 = document.querySelectorAll('.currencies2 button')
+  buttons2.forEach((item)=>{
+    item.addEventListener('click', (event)=>{
+      secondValue = event.target.textContent
+      
+      fetch(`https://api.exchangerate.host/latest?base=${secondValue}&symbols=${firstValue}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        c2.textContent = `1 ${secondValue} = ${data.rates[firstValue]} ${firstValue}`
+        n2.addEventListener('keyup', ()=>{
+          n1.value = (n2.value*data.rates[firstValue]).toFixed(4)
+        })
+        fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
+        .then(response => response.json())
+        .then(data1 => {
+          console.log(data1)
+          c1.textContent = `1 ${firstValue} = ${data1.rates[secondValue]} ${secondValue}`
+        })
+      })
+})
+})
+}
 
+getCurrenciesReversed()

@@ -30,19 +30,6 @@
 /* MOBILE ZONE */
 /* MOBILE ZONE */
 
-/* hide arrows
- Chrome, Safari, Edge, Opera */
- input::-webkit-outer-spin-button,
- input::-webkit-inner-spin-button {
-   -webkit-appearance: none !important;
-   margin: 0 !important;
- }
- 
- /* Firefox */
- input[type=number] {
-   -moz-appearance: textfield !important;
- }
-
 .navbar {
     display: none;
     font-weight: bold;
@@ -160,7 +147,7 @@ h1 {
     color: black
 }
 
-.currencies {
+.currencies1, .currencies2 {
     display: flex;
     flex-direction: row;
     margin-bottom: 20px;
@@ -168,10 +155,11 @@ h1 {
     border-radius: 3px;
     border-collapse: collapse;
     outline: 0;
+    
 }
 
 button {
-    width: 85px;
+    width: 95px;
     height: 35px;
     outline: 0;
     border: 1px solid #E5E5E5;
