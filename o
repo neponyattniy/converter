@@ -1,0 +1,65 @@
+fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
+.then(response => {return response.json()})
+.then(data => {
+    currencyoffirst = data.rates[secondValue];
+    console.log(data.rates[secondValue])
+    currencyofsecond = 1 / currencyoffirst;
+    c1.textContent = `1 ${firstValue} = ${parseFloat(currencyoffirst.toFixed(4))} ${secondValue}`;
+    c2.textContent = `1 ${secondValue} = ${parseFloat(currencyofsecond.toFixed(4))} ${firstValue}`;
+    n1.addEventListener('input', () => {
+      n2.value = (parseFloat((n1.value*currencyoffirst)).toFixed(4)).replace('.0000', ' ')
+    })
+    n2.addEventListener('input', () => {
+      n1.value = (parseFloat((n2.value*currencyofsecond).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+    })
+})
+.catch(error => {
+  alert(`Error! ${error}`)
+});
+
+function fetchingleft () {
+  fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
+  .then(response => {return response.json()})
+  .then(data => {
+      currencyoffirst = data.rates[secondValue];
+      console.log(data.rates[secondValue])
+      c1.textContent = `1 ${firstValue} = ${parseFloat(currencyoffirst.toFixed(4))} ${secondValue}`;
+      c2.textContent = `1 ${secondValue} = ${parseFloat(currencyofsecond.toFixed(4))} ${firstValue}`;
+        n2.value = (parseFloat((n1.value*currencyoffirst).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+      n1.addEventListener('input', () => {
+        n2.value = (parseFloat((n1.value*currencyoffirst)).toFixed(4)).replace('.0000', ' ')
+      })
+      n2.addEventListener('input', () => {
+        n1.value = (parseFloat((n2.value*currencyofsecond).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+
+      })
+  })  
+  .catch(error => {
+    alert(`Error! ${error}`)
+});
+
+}
+
+function fetchingr () {
+  fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
+  .then(response => {return response.json()})
+  .then(data => {
+      currencyoffirst = data.rates[secondValue];
+      console.log(data.rates[secondValue])
+      currencyofsecond = 1 / currencyoffirst;
+      c1.textContent = `1 ${firstValue} = ${parseFloat(currencyoffirst.toFixed(4))} ${secondValue}`;
+      c2.textContent = `1 ${secondValue} = ${parseFloat(currencyofsecond.toFixed(4))} ${firstValue}`;
+        n1.value = (parseFloat((n2.value*currencyoffirst).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+      n2.addEventListener('input', () => {
+        n1.value = (parseFloat((n2.value*currencyoffirst)).toFixed(4)).replace('.0000', ' ')
+      })
+      n1.addEventListener('input', () => {
+        n2.value = (parseFloat((n1.value*currencyofsecond).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+
+      })
+  })  
+  .catch(error => {
+    alert(`Error! ${error}`)
+});
+
+}
