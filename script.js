@@ -33,6 +33,23 @@ changeColorSecond.forEach((item) => {
     })
   })
 })
+
+let btn1 = document.querySelectorAll('.currencies1 button')
+btn1.forEach((item)=>
+{
+item.addEventListener('click', (event) => {
+firstValue = event.target.textContent
+fetchingr()
+})
+})
+let btn2 = document.querySelectorAll('.currencies2 button')
+btn2.forEach((item)=>
+{
+item.addEventListener('click', (event) => {
+secondValue = event.target.textContent
+fetchingleft()
+})
+})
 fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
 .then(response => {return response.json()})
 .then(data => {
@@ -42,7 +59,8 @@ fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondV
     c1.textContent = `1 ${firstValue} = ${parseFloat(currencyoffirst.toFixed(4))} ${secondValue}`;
     c2.textContent = `1 ${secondValue} = ${parseFloat(currencyofsecond.toFixed(4))} ${firstValue}`;
     n1.addEventListener('input', () => {
-      n2.value = ((parseFloat((n1.value*currencyoffirst)).toFixed(4)).replace('.0000', ' '))
+      n2.value = ((parseFloat((n1.value.split(' ').join('')*currencyoffirst)).toFixed(4)).replace('.0000', ' '))
+
       if (n1.value.length == '2' && n1.value[0] == '0' && n1.value[1] != '.')
       {n1.value = n1.value.slice(1)};
       if(n1.value == '')
@@ -52,7 +70,7 @@ fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondV
 
     })
     n2.addEventListener('input', () => {
-      n1.value = (parseFloat((n2.value*currencyofsecond).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+      n1.value = (parseFloat((n2.value.split(' ').join('')*currencyofsecond)).toFixed(4)).replace('.0000', ' ')
       if (n2.value.length == '2' && n2.value[0] == '0' && n2.value[1] != '.')
       {n2.value = n2.value.slice(1)};
       if(n2.value == '')
@@ -65,22 +83,6 @@ fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondV
   alert(`Error! ${error}`)
 });
 
-let btn1 = document.querySelectorAll('.currencies1 button')
-btn1.forEach((item)=>
-{
-item.addEventListener('click', (event) => {
-firstValue = event.target.textContent
-fetchingleft()
-})
-})
-let btn2 = document.querySelectorAll('.currencies2 button')
-btn2.forEach((item)=>
-{
-item.addEventListener('click', (event) => {
-secondValue = event.target.textContent
-fetchingleft()
-})
-})
 
 function fetchingleft () {
   fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
@@ -95,8 +97,8 @@ function fetchingleft () {
       {
         n2.value = ''
       }
-      else {(n2.value = (parseFloat((n1.value*currencyoffirst).toFixed(4)).toFixed(4)).replace('.0000', ' '))}
-      n1.addEventListener('input', () => {
+      else {(n2.value = (parseFloat((n1.value.split(' ').join('')*currencyoffirst)).toFixed(4)).replace('.0000', ' '))}
+      n1.addEventListener('input', () => {  
         n2.value = ((parseFloat((n1.value*currencyoffirst)).toFixed(4)).replace('.0000', ' '))
         if (n1.value.length == '2' && n1.value[0] == '0' && n1.value[1] != '.')
         {n1.value = n1.value.slice(1)};
@@ -104,10 +106,9 @@ function fetchingleft () {
         {
           n2.value = ''
         }
-  
       })
       n2.addEventListener('input', () => {
-        n1.value = (parseFloat((n2.value*currencyofsecond).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+        n1.value = (parseFloat((n2.value.split(' ').join('')*currencyofsecond) ).toFixed(4)).replace('.0000', ' ')
         if (n2.value.length == '2' && n2.value[0] == '0' && n2.value[1] != '.')
         {n2.value = n2.value.slice(1)};
         if(n2.value == '')
@@ -120,6 +121,33 @@ function fetchingleft () {
     alert(`Error! ${error}`)
 });
 
+}
+function fetchingr () {
+  fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
+  .then(response => {return response.json()})
+  .then(data => {
+    currencyoffirst = data.rates[secondValue]
+    currencyofsecond = 1/currencyoffirst
+    c1.textContent = `1 ${firstValue} = ${parseFloat(currencyoffirst.toFixed(4))} ${secondValue}`;
+    c2.textContent = `1 ${secondValue} = ${parseFloat(currencyofsecond.toFixed(4))} ${firstValue}`;
+    if(n2.value == '')
+    {
+      n1.value = ''
+    }
+    else {(n1.value = (parseFloat((n2.value.split(' ').join('')*currencyofsecond)).toFixed(4)).replace('.0000', ' '));}
+    n2.addEventListener('input', () => {
+      n1.value = (parseFloat((n2.value.split(' ').join('')*currencyofsecond) ).toFixed(4)).replace('.0000', ' ')
+      if (n2.value.length == '2' && n2.value[0] == '0' && n2.value[1] != '.')
+      {n2.value = n2.value.slice(1)};
+      if(n2.value == '')
+      {
+        n1.value = ''
+      }
+    })
+  })  
+  .catch(error => {
+    alert(`Error! ${error}`)
+});
 }
 
 window.addEventListener('resize',()=>{
@@ -170,3 +198,8 @@ menu.addEventListener('click', (event) => {
       }
   }
 });
+
+document.querySelector('.main').addEventListener('click', () =>{
+  document.querySelector('.navbar').style.display = 'none';
+  
+})
