@@ -202,5 +202,5 @@ menu.addEventListener('click', (event) => {
 
 document.querySelector('.main').addEventListener('click', () =>{
   document.querySelector('.navbar').style.display = 'none';
-  
+
 })
