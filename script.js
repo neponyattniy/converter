@@ -33,7 +33,6 @@ changeColorSecond.forEach((item) => {
     })
   })
 })
-
 fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
 .then(response => {return response.json()})
 .then(data => {
@@ -43,10 +42,23 @@ fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondV
     c1.textContent = `1 ${firstValue} = ${parseFloat(currencyoffirst.toFixed(4))} ${secondValue}`;
     c2.textContent = `1 ${secondValue} = ${parseFloat(currencyofsecond.toFixed(4))} ${firstValue}`;
     n1.addEventListener('input', () => {
-      n2.value = (parseFloat((n1.value*currencyoffirst)).toFixed(4)).replace('.0000', ' ')
+      n2.value = ((parseFloat((n1.value*currencyoffirst)).toFixed(4)).replace('.0000', ' '))
+      if (n1.value.length == '2' && n1.value[0] == '0' && n1.value[1] != '.')
+      {n1.value = n1.value.slice(1)};
+      if(n1.value == '')
+      {
+        n2.value = ''
+      }
+
     })
     n2.addEventListener('input', () => {
       n1.value = (parseFloat((n2.value*currencyofsecond).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+      if (n2.value.length == '2' && n2.value[0] == '0' && n2.value[1] != '.')
+      {n2.value = n2.value.slice(1)};
+      if(n2.value == '')
+      {
+        n1.value = ''
+      }
     })
 })
 .catch(error => {
@@ -58,7 +70,7 @@ btn1.forEach((item)=>
 {
 item.addEventListener('click', (event) => {
 firstValue = event.target.textContent
-fetching()
+fetchingleft()
 })
 })
 let btn2 = document.querySelectorAll('.currencies2 button')
@@ -66,26 +78,42 @@ btn2.forEach((item)=>
 {
 item.addEventListener('click', (event) => {
 secondValue = event.target.textContent
-fetching()
+fetchingleft()
 })
 })
 
-function fetching () {
+function fetchingleft () {
   fetch(`https://api.exchangerate.host/latest?base=${firstValue}&symbols=${secondValue}`)
   .then(response => {return response.json()})
   .then(data => {
       currencyoffirst = data.rates[secondValue];
-      console.log(data.rates[secondValue])
       currencyofsecond = 1 / currencyoffirst;
+      console.log(data.rates[secondValue])
       c1.textContent = `1 ${firstValue} = ${parseFloat(currencyoffirst.toFixed(4))} ${secondValue}`;
       c2.textContent = `1 ${secondValue} = ${parseFloat(currencyofsecond.toFixed(4))} ${firstValue}`;
-        n2.value = (parseFloat((n1.value*currencyoffirst).toFixed(4)).toFixed(4)).replace('.0000', ' ')
+      if(n1.value == '')
+      {
+        n2.value = ''
+      }
+      else {(n2.value = (parseFloat((n1.value*currencyoffirst).toFixed(4)).toFixed(4)).replace('.0000', ' '))}
       n1.addEventListener('input', () => {
-        n2.value = (parseFloat((n1.value*currencyoffirst)).toFixed(4)).replace('.0000', ' ')
+        n2.value = ((parseFloat((n1.value*currencyoffirst)).toFixed(4)).replace('.0000', ' '))
+        if (n1.value.length == '2' && n1.value[0] == '0' && n1.value[1] != '.')
+        {n1.value = n1.value.slice(1)};
+        if(n1.value == '')
+        {
+          n2.value = ''
+        }
+  
       })
       n2.addEventListener('input', () => {
         n1.value = (parseFloat((n2.value*currencyofsecond).toFixed(4)).toFixed(4)).replace('.0000', ' ')
-
+        if (n2.value.length == '2' && n2.value[0] == '0' && n2.value[1] != '.')
+        {n2.value = n2.value.slice(1)};
+        if(n2.value == '')
+        {
+          n1.value = ''
+        }
       })
   })  
   .catch(error => {
@@ -94,12 +122,22 @@ function fetching () {
 
 }
 
+window.addEventListener('resize',()=>{
+
+  if(window.innerWidth>800)
+  {
+    document.querySelector('.navbar').style.display = 'none';
+    
+  }
+})
+
 let menu = document.querySelector('.menuicon')
 window.addEventListener('resize', () => {
   menu.style.display = 'none'
   if(window.innerWidth < 800)
 {
   menu.style.display = 'block'
+  document.querySelector('.navbar').style.display = 'none';
 }
 else
 {
@@ -111,7 +149,9 @@ menu.addEventListener('click', (event) => {
       if (event.target.id == 'clicked') {
           document.querySelector('.navbar').style.display = 'none';
           event.target.id = ''
-      } else {
+      }
+       
+      else {
           event.target.id = 'clicked'
           document.querySelector('.navbar').style.display = 'flex';
           let inf = document.querySelectorAll('.infnav')

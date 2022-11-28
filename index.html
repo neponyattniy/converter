@@ -20,6 +20,7 @@
                     <div class="inf"><span id = 'mobile'>МОБАЙЛ</span></div>
                     <div class="inf"><span id = 'travel'>ПУТЕШЕСТВИЯ</span></div>
                     <div class="inf"><span id = 'fun'>РАЗВЛЕЧЕНИЯ</span></div>
+
                 </div>
                 <button id = 'enter'>ВОЙТИ</button>
                 <div class="nav">
@@ -53,11 +54,11 @@
                             <button class="gbp1">GBP</button>
                     </div>
                     <div class="currencies-first block">
-                        <input class="number1 number-separator" type="text"
+                        <input class="number1" type="text"
                          oninput=
                         "this.value = this.value.replace(/[^0-9,.]/g, '').replace(/^00+/, '0')
                         .replace('..', '.').replace(',', '.').replace(',,', '.').
-                        replace(',.', '.').replace('..', '.').replace(/^0/, '');">
+                        replace(',.', '.');">
 
                         <p class = 'currency1'></p>
                         </div>
@@ -75,7 +76,7 @@
                         oninput=
                         "this.value = this.value.replace(/[^0-9,.]/g, '').replace(/^00+/, '0')
                         .replace('..', '.').replace(',', '.').replace(',,', '.').
-                        replace(',.', '.').replace('..', '.').replace(/^0/, '');">
+                        replace(',.', '.');">
                         <p class="currency2"></p>
                     </div>
                     </div>
