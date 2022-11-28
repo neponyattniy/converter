@@ -148,6 +148,7 @@ function fetchingr () {
   .catch(error => {
     alert(`Error! ${error}`)
 });
+
 }
 
 window.addEventListener('resize',()=>{
